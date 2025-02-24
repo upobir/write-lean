@@ -1,0 +1,10 @@
+name = "write-lean"
+version = "0.1.0"
+defaultTargets = ["write-lean"]
+
+[[lean_lib]]
+name = "WriteLean"
+
+[[lean_exe]]
+name = "write-lean"
+root = "Main"
