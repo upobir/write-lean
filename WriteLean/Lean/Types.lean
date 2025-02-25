@@ -1,4 +1,4 @@
-/- Type hierarchy -/
+/- =================== TYPE HIERARCHY =================== -/
 
 #check Nat -- Type
 #check Bool -- Type
@@ -9,11 +9,6 @@
 -- Type and Type 0 are same
 #check Type 1 -- Type 2
 
--- Sort is more fundamental
-#check Sort 0 -- Type or Type 0
-#check Sort 1 -- Type 1
-#check Sort 2 -- Type 2
-
 #check Prop -- Type
 -- Prop is like Nat, Bool, String
 
@@ -22,24 +17,35 @@
 #check Nat → Type → Type 1 -- Type 2
 -- when expressions have types upto x, it's type is x+1
 
+-- so the chain of types/universes is `Prop : Type 0 : Type 1 : Type 2 ....`
+-- we use inductive types to create inhabitants/types inside of these like
+-- True False : Prop
+-- Nat Bool : Type 0
+-- These types have instances (but instances themselves are not types)
+-- True.intro h : True
+-- Nat.zero n : Nat
 
-/- Type creations -/
 
+/- ==================== TYPE CREATION ======================== -/
+
+namespace learning
 -- Nat is defined by the 0 and succ
-inductive MyNat where
-  | zero : MyNat
-  | succ (n : MyNat) : MyNat
+inductive Nat where
+  | zero : Nat
+  | succ (n : Nat) : Nat
 
-#eval MyNat.zero -- 0
-#eval MyNat.succ MyNat.zero -- 1
-#eval MyNat.succ (MyNat.succ MyNat.zero) -- 2
+#eval Nat.zero -- 0
+#eval Nat.succ Nat.zero -- 1
+#eval Nat.succ (Nat.succ Nat.zero) -- 2
 
 -- Bool is defined by the false and the true, mathematically this is same as prop, but Bool needed for programming
-inductive MyBool : Type where
-  | false : MyBool
-  | true : MyBool
+inductive Bool : Type where
+  | false : Bool
+  | true : Bool
 
-#eval MyBool.true
-#eval MyBool.false
+#eval Bool.true
+#eval Bool.false
 
 -- Prop has no construction, and in fact compiler removes all Props as they are a theoretical construct only
+
+end learning

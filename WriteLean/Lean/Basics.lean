@@ -1,4 +1,4 @@
-/- eval and check -/
+/- ================== EVAL AND CHECK =================== -/
 
 -- check types
 
@@ -28,7 +28,7 @@
 
 
 
-/- variable and function declare -/
+/- ================ VARIABLES AND FUNCTIONS =================== -/
 
 def x := 1 -- type inferred
 def y : Nat := 1 -- type set
@@ -49,7 +49,7 @@ def f6 := λ (x: Nat) => λ y => x + y -- lambda notation, but type not give, ty
 
 
 
-/- let binding -/
+/- ===================== LET BINDING ======================== -/
 
 -- both below are same
 
@@ -58,3 +58,36 @@ def g1 (x: Nat) (f: Nat → Nat) (f': Nat → Nat) (f'': Nat → Nat) :=  f' (f 
 def g2 (x: Nat) (f: Nat → Nat) (f': Nat → Nat) (f'': Nat → Nat) :=
   let y := f x;
   f' y + f'' y
+
+
+
+/- ==================== NAMESPACE ====================== -/
+
+def z := 1
+
+-- namespace way to overwrite defined stuff locally
+namespace ns
+def z := 2
+def z' := 3
+end ns
+
+#eval z -- 1
+#eval ns.z -- 2
+
+open ns -- opening means available without namespace
+#eval z'  -- 3
+-- #eval z -- ambiguous
+
+
+/- ===================== SECTION ========================== -/
+
+section
+variable (a b: Nat) -- every definition now will have these as "arguments"
+#check a
+#check b
+#check a + b
+
+def h : Nat := a + b
+#check h -- a, b are auto injected as argument
+
+end
