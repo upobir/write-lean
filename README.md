@@ -20,3 +20,4 @@ Not needed for proving. Binary at `.lake/build/bin/<project-name>`
 2. Classical Logic
     1. [Props](WriteLean/ClassicalLogic/Props.lean)
     2. [Raw Proofs](WriteLean/ClassicalLogic/RawProofs.lean)
+    3. [Proofs](WriteLean/ClassicalLogic/Proofs.lean)
