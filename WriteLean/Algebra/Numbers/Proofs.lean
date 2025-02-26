@@ -61,3 +61,54 @@ example (a b c: ℕ) (h: (a:ℝ) + b = c + 3) (h' : c + 3 = 4) : a + b = 4 := by
 
 example (a : ℕ) (b : ℤ) (h: (a:ℝ) = b) : a = b := by
   norm_cast at h      -- works with mixed levels of casting too
+
+
+/- ================= simp & field_simp ================ -/
+
+-- `simp` is a technique that tries to simplify a theorem by lots of registered lemma. Remember it only simplifies, doesn't do stuff like commutativtiy
+example : (3 + 5 + 1) = (2 + 7)  := by simp -- simplified to 9
+
+-- but note not always in righ direction
+example (x: ℝ) : (3 + 5 + 1) * x = (2 + 7) * x := by
+  simp -- simplified to 3+5+1=2+7 or x = 0
+  sorry
+
+-- `field_simp` basically simplifies division to multiplication
+example : 5 / √ 3 = (5 * √ 2) / (√ 3 * √ 2) := by
+  field_simp    -- goal is now 5 * (√3 * √2) = 5 * √2 * √3
+  rw [mul_comm (√3), mul_assoc]
+
+/- ================= square roots ================ -/
+
+-- sqrt_sq and sq_sqrt are the source of proofs generally
+#check Real.sqrt_sq
+#check Real.sq_sqrt
+
+-- here's an example
+example : √ 25 = 5 := by
+  calc
+  √ 25 = √ (5^2) := by norm_num
+  _ = 5 := by
+    apply Real.sqrt_sq  -- noly requires proving 5 > 0 now
+    norm_num
+
+-- or use `simp` as sqrt thorems are part of it.
+example : √ 25 = 5 := by
+  calc
+  √ 25 = √ (5^2) := by norm_num
+  _ = 5 := by simp
+
+-- norm_num works in place of (√ )^2 due to nature of √ definition
+example : (√ 5)^2 = 5 := by norm_num
+
+
+/- ================= common examples ================ -/
+
+-- a common ugly math
+example : 1 / (√5 - 2) = 2 + √5 := by
+  calc
+    1 / (√5 - 2) = (√5 + 2) / (√5 + 2) / (√5 - 2)  := by field_simp
+    _ = (√5 + 2) / ((√5 + 2) * (√5 - 2)) := by rw [div_div]
+    _ = (√5 + 2) / ((√5)^2 - 2^2) := by ring
+    _ = (√5 + 2) := by norm_num
+    _ = (2 + √5) := by ring
