@@ -31,7 +31,7 @@ example (p q r s: Prop) (hp: p) (hpq: p → q) (hpqr : p → q → r) (hrs: r �
   . apply hpq               -- goal q is again changed to p by apply
     exact hp
 
--- `intro` allows assuming hypothesis to prove an implication
+-- `intro` allows assuming hypothesis to prove an implication, this is actually for any proof which is a function
 example (p q r: Prop) (hpq : p → q) (hqr: q → r) : p → r := by
   intro hp              -- introduces p as hypothesis
   exact hqr (hpq hp)    -- applying on hp to get r finally
@@ -47,6 +47,11 @@ example (p q: Prop) : p → q → p := by
 -- for `and` hypothesis use left and right to extract info
 example (p q : Prop) (hpq : p ∧ q) : p := by exact hpq.left
 example (p q : Prop) (hpq : p ∧ q) : q := by exact hpq.right
+
+-- you can also extract completely
+example (p q : Prop) (hpq : p ∧ q) : p := by
+  have ⟨ hp, hq ⟩ := hpq      -- extracts the values
+  exact hp
 
 -- `constructor` basically sets multiple goals for structure goals, perfect for and
 example (p q : Prop) (hp : p) (hq : q) : p ∧ q := by
@@ -89,6 +94,11 @@ example (p q : Prop) (hpq: p ∧ q) : (q ∧ p) := by apply And.symm; assumption
 -- use `mp` and `mpr` to extract parts
 example (p q : Prop) (h: p ↔ q) : p → q := by exact h.mp
 example (p q : Prop) (h: p ↔ q) : q → p := by exact h.mpr
+
+-- you can also extract completely
+example (p q : Prop) (h : p ↔ q) : p → q := by
+  have ⟨ hpq, hqp ⟩ := h      -- extracts the values
+  exact hpq
 
 -- use `constructor` or `⟨ , ⟩` like and above
 example (p q : Prop) (hpq : p → q) (hqp : q → p) : p ↔ q := by
