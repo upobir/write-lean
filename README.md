@@ -29,3 +29,7 @@ Not needed for proving. Binary at `.lake/build/bin/<project-name>`
         1. [Basics](WriteLean/ClassicalLogic/PredicateLogic/Basics.lean)
         2. [Raw Proofs](WriteLean/ClassicalLogic/PredicateLogic/RawProofs.lean)
         3. [Proofs](WriteLean/ClassicalLogic/PredicateLogic/Proofs.lean)
+3. Algebra
+    1. Numbers
+        1. [Basics](WriteLean/Algebra/Numbers/Basics.lean)
+        2. [Proofs](WriteLean/Algebra/Numbers/Proofs.lean)
