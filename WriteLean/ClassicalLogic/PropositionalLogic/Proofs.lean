@@ -140,6 +140,8 @@ example (p : Prop) : p ∨ ¬ p := by exact Classical.em p
 -- one part of or can be removed due to not hypothesis
 #check Or.resolve_left      -- (h : a ∨ b) (na : ¬a) : b
 #check Or.resolve_right     -- (h : a ∨ b) (nb : ¬b) : a
+#check Or.neg_resolve_left  -- (h : ¬a ∨ b) (na : a) : b
+#check Or.neg_resolve_right -- (h : a ∨ ¬b) (nb : b) : a
 
 
 -- de morgan's law, weird naming I know

@@ -18,9 +18,14 @@ Not needed for proving. Binary at `.lake/build/bin/<project-name>`
     1. [Basics](WriteLean/Lean/Basics.lean)
     2. [Types](WriteLean/Lean/Types.lean)
 2. Classical Logic
-    1. [Props](WriteLean/ClassicalLogic/Props.lean)
-    2. [Raw Proofs](WriteLean/ClassicalLogic/RawProofs.lean)
-    3. [Proofs](WriteLean/ClassicalLogic/Proofs.lean)
-3. Equality
-    1. [Equality](WriteLean/Equality/Equality.lean)
-    2. [Proofs](WriteLean/Equality/Proofs.lean)
+    1. Propositional Logic
+        1. [Basics](WriteLean/ClassicalLogic/PropositionalLogic/Basics.lean)
+        2. [Raw Proofs](WriteLean/ClassicalLogic/PropositionalLogic/RawProofs.lean)
+        3. [Proofs](WriteLean/ClassicalLogic/PropositionalLogic/Proofs.lean)
+    2. Equality
+        1. [Basics](WriteLean/ClassicalLogic/Equality/Basics.lean)
+        2. [Proofs](WriteLean/ClassicalLogic/Equality/Proofs.lean)
+    3. Predicate Logic
+        1. [Basics](WriteLean/ClassicalLogic/PredicateLogic/Basics.lean)
+        2. [Raw Proofs](WriteLean/ClassicalLogic/PredicateLogic/RawProofs.lean)
+        3. [Proofs](WriteLean/ClassicalLogic/PredicateLogic/Proofs.lean)
