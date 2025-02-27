@@ -8,9 +8,28 @@ example  {α : Type} [HAdd α α α] (a b c d : α) (h: a + b = c) : c + d = a +
 
 example (a : ℕ) : a + 1 + 1 = a + 2 := by rfl  -- Nat add definition easily proves this
 
+-- `calc` is the way to do chain of equality stuff, we write a = b = c = ... chain, justifying each pair as a isolated proof
+example (a b c : ℝ) (h: c = a + b) : c^2 = a^2 + 2*a*b + b^2 := by
+  calc
+    c^2 = (a+b)^2 := by rw [h]
+            -- justifying c^2 = (a+b)^2
+    _ = (a+b)*(a+b) := by exact pow_two (a+b)
+            -- justifying (a+b)^2 = (a+b)*(a+b)
+    _ = a*(a+b) + b*(a+b) := by exact add_mul a b (a+b)
+            -- justifying (a+b)*(a+b) = a*(a+b) + b*(a+b)
+    _ = a^2 + a*b + (b*a + b^2) := by rw[mul_add, mul_add, ← pow_two, ← pow_two]
+            -- justifying a*(a+b) + b*(a+b) = a^2 + a*b + (b*a + b^2)
+    _ = a^2 + (a*b + b*a) + b^2 := by rw [← add_assoc, add_assoc (a^2)]
+            -- justifying a^2 + a*b + (b*a + b^2) = a^2 + (a*b + b*a) + b^2
+    _ = a^2 + (a*b + a*b) + b^2 := by rw [mul_comm]
+            -- justifying a^2 + (a*b + b*a) + b^2 = a^2 + (a*b + a*b) + b^2
+    _ = a^2 + 2*a*b + b^2 := by rw [← two_mul, mul_assoc]
+            -- justifying a^2 + (a*b + a*b) + b^2 = a^2 + 2*a*b + b^2
+
 -- Common mistake is thinking it's all real when it can be some lower type, note that two expressions below are completely different!
 example (a: ℕ) : a / (a + 1) + 1 = (2*a + 1) / (a + 1) := by sorry
 example (a: ℝ) : a / (a + 1) + 1 = (2*a + 1) / (a + 1) := by sorry
+
 
 
 
@@ -65,7 +84,7 @@ example (x: ℚ) (h: x > 2) : 3*x + x^2 + x > (4 * x + 6) / 2 - 3 := by
 
 
 
-/- ================= Integers (no variable division) ======================== -/
+/- ================= Integers ======================== -/
 
 -- ring and ring_nf will still work as before, except for division
 example (a b : ℤ) : (a - b)^2 = a^2 - 2*a*b + b^2 := by ring
@@ -86,7 +105,7 @@ example: ∃ x y z : ℤ, x/z + y/z ≠ (x+y)/z := by
   by norm_num     -- 7 / 5 + 8 / 5 = 1 + 1 ≠ 3 = 15 / 5
 
 
-/- ================= Naturals (no variable division) ======================== -/
+/- ================= Naturals ======================== -/
 
 -- ring and ring_nf will still work as before, except for division and subtraction
 example (a b : ℕ) : (a + b)^2 = a^2 + 2*a*b + b^2 := by ring
