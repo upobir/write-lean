@@ -141,7 +141,7 @@ example (p q : Prop) (hp: p) (hnp : ¬p): q := by contradiction
 example (p : Prop) : p ∨ ¬ p := by exact Classical.em p
 
 -- `¬¬a ↔ a` is useful in rewrites
-#check Classical.not_not
+#check not_not
 
 
 
@@ -163,3 +163,9 @@ example (p : Prop) : p ∨ ¬ p := by exact Classical.em p
 example (p q : Prop) (h: ¬ p → ¬ q) : (q → p) := by
   contrapose -- changes goal to ¬ p → ¬ q
   assumption
+
+-- usual contradiction technique is as follows
+example (p q: Prop) (h: ¬p → q) (h': q → False) : p := by
+  apply not_not.mp   -- make goal ¬¬p
+  intro (hnp : ¬p)    -- now assuming ¬p prove False (thus proving ¬¬p)
+  exact h' (h hnp)

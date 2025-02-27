@@ -33,6 +33,7 @@ import Lean
 #eval 5 * -8
 #eval 16 / -8    -- WARNING, see below
 #eval -10 ^ 2
+-- #eval 10 ^ (-2)  -- note no integer exponent
 #eval 16 % -5    -- WARNING, see below
 
 -- to not allow any errors, a / b is floor division, a / 0 = 0, a % 0 = a
@@ -59,7 +60,9 @@ import Lean
 #eval (10:ℚ) - 101 / 2
 #eval (5:ℚ) * 2 / 3
 #eval (16:ℚ) / 3       -- WARNING, see below
-#eval ((1:ℚ)/2) ^ 3    -- only nat exponent
+#eval ((1:ℚ)/2) ^ 3
+#eval (4:ℚ) ^ (-2 :ℤ)
+-- #eval (4:ℚ) ^ ((1:Q)/2) -- no rational exponent
 #eval (5:ℚ) % 4        -- useless
 
 -- For division, a / 0 = 0
@@ -77,6 +80,10 @@ import Lean
 #eval (3:ℝ) - 4
 #eval (-1:ℝ) * 1
 #check (4:ℝ) / 2    -- eval won't evaluate the cauchy, but defined
-#check (5:ℝ) ^ ((1:ℝ)/2) -- eval won't evaluate the cauchy, but deifned
+#check (5:ℝ) ^ ((1:ℝ)/2) -- eval won't evaluate the cauchy, but deifned for any real real pair
 #check (5:ℝ) % 3  -- probably useless
 #check √ 5        -- wont' compute, but exists
+
+
+-- For division a / 0 = 0
+#check (1:ℝ) / 0  -- wont' compute, but exists

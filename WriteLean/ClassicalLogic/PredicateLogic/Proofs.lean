@@ -59,3 +59,10 @@ example (P Q : Nat → Prop) (h: ∀ x: Nat, P x → Q x) (hp: ∃ x: Nat, P x) 
   cases hp with
   | intro x hpx =>        -- intro case has x and hpx : P x
     use x, h x hpx
+
+
+/- ================= Common ================ -/
+
+-- de morgan's law for ∀ and ∃
+#check not_forall         --  (¬∀ (x : α), p x) ↔ ∃ x, ¬p x
+#check not_exists         --  (¬∃ x, p x) ↔ ∀ (x : α), ¬p x

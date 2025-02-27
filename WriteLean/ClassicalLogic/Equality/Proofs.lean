@@ -70,12 +70,18 @@ example (a b c d: Nat) : (a + b) * (c + d) = (b + a) * (d + c) := by
   -- rw [add_comm]       this matches to add_comm a b, so only first sum is matched
   rw [add_comm a, add_comm c]
 
+-- WARNING, `rw` can't work when the equality you are using has a single term on left side which is a metavariable. so turn it to explicit and use
+example (f: ℕ → ℕ) (h:  {x: ℕ} → f x = x) : f 1 = 1 := by
+  rw [h]
+example (f: ℕ → ℕ) (h: {x : ℕ} → x = f x) : 1 = f 1 := by
+  -- rw [h]   -- fails
+  rw [@h 1]
+
 -- rw will replace all, to rewrite only one occurence use `nth_rw`
 example (a b c d: Nat) (h1: b = a) (h2: b + c = d) : b + c + b = d + a := by
   -- rw [h1]              changes all b to a, bad
   nth_rw 2 [h1]           -- change only 2nd occurence to get b + c + a = d + a
   rw [h2]
-
 
 /-=================== unfold ================= -/
 
