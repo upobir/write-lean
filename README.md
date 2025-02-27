@@ -17,6 +17,7 @@ Not needed for proving. Binary at `.lake/build/bin/<project-name>`
 1. Lean
     1. [Basics](WriteLean/Lean/Basics.lean)
     2. [Types](WriteLean/Lean/Types.lean)
+    3. [Misc Proofs](WriteLean/Lean/MiscProofs.lean)
 2. Classical Logic
     1. Propositional Logic
         1. [Basics](WriteLean/ClassicalLogic/PropositionalLogic/Basics.lean)
@@ -73,3 +74,4 @@ Not needed for proving. Binary at `.lake/build/bin/<project-name>`
 28. `linarith`
 29. `omega`
 30. `suffices`
+31. `repeat`
