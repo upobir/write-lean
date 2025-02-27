@@ -33,9 +33,9 @@ example (a: ℝ) : a / (a + 1) + 1 = (2*a + 1) / (a + 1) := by sorry
 
 
 
-/- ================= Reals and Rationals (no variable division) ======================== -/
+/- ================= Reals and Rationals ======================== -/
 
--- most algebraic manipulation related to +,-,*,/ can be done by `ring` which will prove algebraic identity for commutative semiring. Note it will not use hypothesis
+-- most algebraic manipulation related to +,-,* can be done by `ring` which will prove algebraic identity for commutative semiring. Note it will not use hypothesis
 
 example (x y: ℚ) : (x + y)^2 = x^2 + y^2 + 2*x*y := by ring
 
@@ -82,6 +82,29 @@ example (x: ℚ) (h: x > 2) : 3*x + x^2 + x > (4 * x + 6) / 2 - 3 := by
   ring_nf     -- cancelled out everything but didn't change any sides
   sorry
 
+-- to handle division use `field_simp` this will try to create a normalized format from a equation and if you have hypothesis of non-zero ness, take those denominator to other side. most times, `ring` is enough after it
+
+example (a b : ℝ) (h: a ≠ 0) (h': b > 3) : a * b / a * 2 / b = 2 := by
+  field_simp    -- basically cancelled both a and b (figured out b ≠ 0)
+
+example (a b : ℝ) (h: a ≠ 0)  : a * b / a * 2 / b = 2 := by
+  field_simp    -- cancelled a, but not b (as not guaranteed to be non-zero)
+  sorry;
+
+-- field_simp is a bit surprising as it'd multiply to other side but sometimes fail to prove simple ring facts, typically ring is enough now
+example (a b : ℝ) (h: a ≠ 0) (h': b ≠ 0) : a * b / (b * a) = 1 := by
+  field_simp -- converts to a * b = b * a
+  ring
+
+-- field_simp tries to figure out non-zero hypothesis, such as products but if it can't provide it with []
+example (a b c : ℝ) (h: a ≠ 0) (h' : b ≠ 0) (h'': c^2 ≠ 0) : (a*b) * c / (a*b) / c = 1 := by
+  field_simp [right_ne_zero_of_mul h''] -- provided the additional fact that c ≠ 0
+
+-- can simplify at hypothesis
+example (a b c d : ℝ) (h: b ≠ 0) (h': d ≠ 0) (h'': a / b = c / d) : a * d = b * c := by
+  field_simp at h''
+  rw [h'']
+  ring
 
 
 /- ================= Integers ======================== -/
@@ -117,6 +140,11 @@ example (a b : ℕ) : (a - b)^2 = a^2 - 2*a*b + b^2 := by
 example (a b : ℕ) : (5 - a - 3) = 2 - a := by
   -- ring       -- can't prove as nat subtraction is not same as normal subtraction
   sorry
+
+-- nat subtraction is also weird
+example: ∃ a b c: ℕ, a + (b - c) ≠ a + b - c := by
+  use 2, 2, 3
+  norm_num    -- as 2 + (2 - 3) = 2 + 0 = 2 ≠ 1 = 4 - 3 = 2 + 2 - 3
 
 example (a : ℕ) : (5 - 3 - a) = 2 - a := by ring    -- this works tho, as ring will do norm_num stuff
 
