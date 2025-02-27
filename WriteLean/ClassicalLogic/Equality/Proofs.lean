@@ -75,7 +75,7 @@ example (f: ℕ → ℕ) (h:  {x: ℕ} → f x = x) : f 1 = 1 := by
   rw [h]
 example (f: ℕ → ℕ) (h: {x : ℕ} → x = f x) : 1 = f 1 := by
   -- rw [h]   -- fails
-  rw [@h 1]
+  nth_rw 1 [@h 1]
 
 -- rw will replace all, to rewrite only one occurence use `nth_rw`
 example (a b c d: Nat) (h1: b = a) (h2: b + c = d) : b + c + b = d + a := by

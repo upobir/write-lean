@@ -26,6 +26,10 @@ example (a b c : ℝ) (h: c = a + b) : c^2 = a^2 + 2*a*b + b^2 := by
     _ = a^2 + 2*a*b + b^2 := by rw [← two_mul, mul_assoc]
             -- justifying a^2 + (a*b + a*b) + b^2 = a^2 + 2*a*b + b^2
 
+-- `simp` is a simplification tactic that tries simplification things like a + 0 = a, a * 1 = a, a - a = 0 etc. it won't try non-simnplification stuff like a + b = b + a or a + b + c = a + (b + c). this is useful in cases where other techniques don't work (like Nat subtraction)
+example (a :ℕ) : a - a = 0 := by simp
+example (a :ℤ) : a / 1 = a := by simp
+
 -- Common mistake is thinking it's all real when it can be some lower type, note that two expressions below are completely different!
 example (a: ℕ) : a / (a + 1) + 1 = (2*a + 1) / (a + 1) := by sorry
 example (a: ℝ) : a / (a + 1) + 1 = (2*a + 1) / (a + 1) := by sorry
@@ -127,6 +131,9 @@ example: ∃ x y z : ℤ, x/z + y/z ≠ (x+y)/z := by
   use 7, 8, 5,
   by norm_num     -- 7 / 5 + 8 / 5 = 1 + 1 ≠ 3 = 15 / 5
 
+-- some divisions can work via simp
+example (a: ℤ) : a / 1 = a := by simp -- ring doesn't work here
+
 
 /- ================= Naturals ======================== -/
 
@@ -147,5 +154,8 @@ example: ∃ a b c: ℕ, a + (b - c) ≠ a + b - c := by
   norm_num    -- as 2 + (2 - 3) = 2 + 0 = 2 ≠ 1 = 4 - 3 = 2 + 2 - 3
 
 example (a : ℕ) : (5 - 3 - a) = 2 - a := by ring    -- this works tho, as ring will do norm_num stuff
+
+-- some subtraction can work via `simp`
+example (a: ℕ) : a - a = 0 := by simp -- ring doesn't work here
 
 -- same thing about division like ℤ

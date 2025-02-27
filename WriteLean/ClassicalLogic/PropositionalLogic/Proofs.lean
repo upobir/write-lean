@@ -169,3 +169,12 @@ example (p q: Prop) (h: ¬p → q) (h': q → False) : p := by
   apply not_not.mp   -- make goal ¬¬p
   intro (hnp : ¬p)    -- now assuming ¬p prove False (thus proving ¬¬p)
   exact h' (h hnp)
+
+-- but instead we use `by_contra` which assumes opposite and requires false goal
+example (p q: Prop) (h: ¬p → q) (h': q → False) : p := by
+  by_contra hnp  -- this introduces hnp : ¬ p and makes goal False
+  exact h' (h hnp)
+
+example (p q: Prop) (h: p → q) (h': q → False) : ¬p := by
+  by_contra hp  -- this introduces hp : p and makes goal False
+  exact h' (h hp)

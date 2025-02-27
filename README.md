@@ -35,3 +35,36 @@ Not needed for proving. Binary at `.lake/build/bin/<project-name>`
         2. [Proofs](WriteLean/Algebra/Numbers/Proofs.lean)
     2. Classical Algebra
         1. [Proofs](WriteLean/Algebra/ClassicalAlgebra/Proofs.lean)
+4. Number Theory
+    1. Natural Number Technique
+        1. [Proofs](WriteLean/NumberTheory/NatNumberTechnique/Proofs.lean)
+
+
+## Tactics
+1. `exact`
+2. `assumption`
+3. `have`
+4. `apply`
+5. `intro`
+6. `constructor`
+7. `left`, `right`
+8. `cases`
+9. `trivial`
+10. `exfalso`
+11. `contradiction`
+12. `contrapose`
+13. `by_contra`
+14. `rfl`
+15. `rw`, `nth_rw`
+16. `unfold`
+17. `use`
+18. `exists`
+19. `obtain`
+20. `norm_num`
+21. `norm_cast`
+22. `simp`
+23. `field_simp`
+24. `calc`
+25. `ring`, `ring_nf`
+26. `field_simp`
+27. `induction`
