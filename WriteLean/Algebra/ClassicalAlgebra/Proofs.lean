@@ -95,28 +95,34 @@ example (a b : ℝ) (h: a ≠ 0)  : a * b / a * 2 / b = 2 := by
   field_simp    -- cancelled a, but not b (as not guaranteed to be non-zero)
   sorry;
 
--- field_simp is a bit surprising as it'd multiply to other side but sometimes fail to prove simple ring facts, typically ring is enough now
+-- field_simp is a bit surprising as it'd multiply to other side but sometimes fail to prove simple ring facts, typically ring is enough after it
 example (a b : ℝ) (h: a ≠ 0) (h': b ≠ 0) : a * b / (b * a) = 1 := by
   field_simp -- converts to a * b = b * a
   ring
 
--- field_simp tries to figure out non-zero hypothesis, such as products but if it can't provide it with []
+-- field_simp tries to figure out non-zero hypothesis, such as products but if it can't, provide it with []
 example (a b c : ℝ) (h: a ≠ 0) (h' : b ≠ 0) (h'': c^2 ≠ 0) : (a*b) * c / (a*b) / c = 1 := by
-  field_simp [right_ne_zero_of_mul h''] -- provided the additional fact that c ≠ 0
+  field_simp [right_ne_zero_of_mul h''] -- figured out a*b ≠ 0, provided the additional fact that c ≠ 0
 
--- can simplify at hypothesis
+-- field_simp can simplify at hypothesis
 example (a b c d : ℝ) (h: b ≠ 0) (h': d ≠ 0) (h'': a / b = c / d) : a * d = b * c := by
   field_simp at h''
   rw [h'']
   ring
 
+-- `linarith` is a tactic that will do stuff using linear combinations, in the context of "identities" linarith is mostly redundant due to `ring`. but it's very useful for multiple equations/inequalities
+example (a b c:ℝ) : a*b + 3*b - c^2 = b*a + b - c^2 + 2*b := by linarith    -- just linear combinations
+
+example (x:ℝ) : (x + 5 -x) / (2 + x) = (5) / (x + 2) := by
+  -- linarith    -- fails due to full expression not being linear
+  sorry
 
 /- ================= Integers ======================== -/
 
 -- ring and ring_nf will still work as before, except for division
 example (a b : ℤ) : (a - b)^2 = a^2 - 2*a*b + b^2 := by ring
 
-example (a b : ℤ) : 10 / 2 * a = 5 * a := by ring -- division with just ints (no variable) doable kine of like norm_num
+example (a b : ℤ) : 10 / 2 * a = 5 * a := by ring -- division with just ints (no variable) doable kind of like norm_num
 
 example (a b : ℤ) : (10 * a) / 2 = 5 * a := by
   -- ring    -- int division is not normal division, so ring can't help even when simple calculation
@@ -133,6 +139,14 @@ example: ∃ x y z : ℤ, x/z + y/z ≠ (x+y)/z := by
 
 -- some divisions can work via simp
 example (a: ℤ) : a / 1 = a := by simp -- ring doesn't work here
+
+-- some stuff works with linarith itself (where complex stuff can be abstracted as parts of linear combination)
+example (x: ℤ) (h: 2 * x + 2 = 4) : x = 1 := by linarith
+
+-- but for stuff where interaction of division with `x` is important, use `omega` which is linarith for int/nat, it basically does casework
+example (x y: ℤ) : y + x/2 = (2*y + x) / 2 := by
+  -- linarith       -- linarith can't help here as you can't think of the expressions as linear combination with fixed parts
+  omega
 
 
 /- ================= Naturals ======================== -/
@@ -157,5 +171,8 @@ example (a : ℕ) : (5 - 3 - a) = 2 - a := by ring    -- this works tho, as ring
 
 -- some subtraction can work via `simp`
 example (a: ℕ) : a - a = 0 := by simp -- ring doesn't work here
+
+-- but `omega` as before helps in some cases which automatically does casework
+example (a b :ℕ) : a + 10 + b - a = b + 10 := by omega
 
 -- same thing about division like ℤ

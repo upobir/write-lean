@@ -83,6 +83,12 @@ example (p q r : Prop) (hpq : p ∨ q) (hpr: p → r) (hqr : q → r) : r := by
   | inl hp => apply hpr; assumption
   | inr hq => apply hqr; assumption
 
+-- `cases'` doesn't have the | notation instead each goal becomes a separate goal and all the hypothesis for each case, you name them at first line.
+example (p q r : Prop) (hpq : p ∨ q) (hpr: p → r) (hqr : q → r) : r := by
+  cases' hpq with hp hq
+  . apply hpr; assumption
+  . apply hqr; assumption
+
 -- symmetry is very useful sometimes
 example (p q : Prop) (hpq: p ∧ q) : (q ∧ p) := by exact hpq.symm
 example (p q : Prop) (hpq: p ∧ q) : (q ∧ p) := by apply And.symm; assumption

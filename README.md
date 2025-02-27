@@ -48,7 +48,7 @@ Not needed for proving. Binary at `.lake/build/bin/<project-name>`
 5. `intro`
 6. `constructor`
 7. `left`, `right`
-8. `cases`
+8. `cases`, `cases'`
 9. `trivial`
 10. `exfalso`
 11. `contradiction`
@@ -68,3 +68,5 @@ Not needed for proving. Binary at `.lake/build/bin/<project-name>`
 25. `ring`, `ring_nf`
 26. `field_simp`
 27. `induction`
+28. `linarith`
+29. `omega`
