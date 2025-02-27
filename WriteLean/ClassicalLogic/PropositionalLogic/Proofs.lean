@@ -31,6 +31,13 @@ example (p q r s: Prop) (hp: p) (hpq: p → q) (hpqr : p → q → r) (hrs: r �
   . apply hpq               -- goal q is again changed to p by apply
     exact hp
 
+-- a verbose and more generic version of apply is `suffices` where you create a middle goal  and provide proof how from middle you can go to target, then provide proof of hypothesis to middle
+example (p q r s t: Prop) (hp: p) (hpq: p → q) (hpqr : p → q → r) (hrs: r → s) (hst: s → t) : t := by
+  suffices hr: r by           -- set up middle goal r, hr is used in the proof of r → t
+    exact hst (hrs hr)        -- prove r → t utilizing hr
+  exact hpqr hp (hpq hp)      -- prove p → r (hr is not available here)
+
+
 -- `intro` allows assuming hypothesis to prove an implication, this is actually for any proof which is a function
 example (p q r: Prop) (hpq : p → q) (hqr: q → r) : p → r := by
   intro hp              -- introduces p as hypothesis

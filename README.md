@@ -35,6 +35,8 @@ Not needed for proving. Binary at `.lake/build/bin/<project-name>`
         2. [Proofs](WriteLean/Algebra/Numbers/Proofs.lean)
     2. Classical Algebra
         1. [Proofs](WriteLean/Algebra/ClassicalAlgebra/Proofs.lean)
+    3. Multiple Equation
+        1. [Proofs](WriteLean/Algebra/MultipleEquation/Proofs.lean)
 4. Number Theory
     1. Natural Number Technique
         1. [Proofs](WriteLean/NumberTheory/NatNumberTechnique/Proofs.lean)
@@ -70,3 +72,4 @@ Not needed for proving. Binary at `.lake/build/bin/<project-name>`
 27. `induction`
 28. `linarith`
 29. `omega`
+30. `suffices`
