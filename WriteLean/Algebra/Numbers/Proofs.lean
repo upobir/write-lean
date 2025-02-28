@@ -78,29 +78,6 @@ example : 5 / √ 3 = (5 * √ 2) / (√ 3 * √ 2) := by
   field_simp    -- goal is now 5 * (√3 * √2) = 5 * √2 * √3
   rw [mul_comm (√3), mul_assoc]
 
-/- ================= square roots ================ -/
-
--- sqrt_sq and sq_sqrt are the source of proofs generally
-#check Real.sqrt_sq
-#check Real.sq_sqrt
-
--- here's an example
-example : √ 25 = 5 := by
-  calc
-  √ 25 = √ (5^2) := by norm_num
-  _ = 5 := by
-    apply Real.sqrt_sq  -- noly requires proving 5 > 0 now
-    norm_num
-
--- or use `simp` as sqrt thorems are part of it.
-example : √ 25 = 5 := by
-  calc
-  √ 25 = √ (5^2) := by norm_num
-  _ = 5 := by simp
-
--- norm_num works in place of (√ )^2 due to nature of √ definition
-example : (√ 5)^2 = 5 := by norm_num
-
 
 /- ================= common examples ================ -/
 
