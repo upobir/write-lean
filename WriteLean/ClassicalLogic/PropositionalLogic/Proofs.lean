@@ -47,6 +47,15 @@ example (p q: Prop) : p → q → p := by
   intro hp hq            -- introduces p, then q
   assumption
 
+-- can be unnamed
+example (p q: Prop) (hq : q)  : p → q := by
+  intro              -- introduces p as hypothesis
+  assumption         -- applying on hp to get r finally
+
+-- there is `intros` which introduces as many as possible (unnamed if not given name) I don't like it, I prefer explicitness
+example (p q: Prop) : p → q → p := by
+  intros            -- introduces p, then q
+  assumption
 
 
 /- ================== AND ================ -/

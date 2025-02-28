@@ -28,6 +28,13 @@ example :
   f (g 3) = 4 := by
   rfl             -- follows through several definitions
 
+/- ================ let and show ================ -/
+-- `let` is to name a variable to hide complexity. note let is not same as have, let defines stuffs
+-- `show` can be used just after that to establish the goal to be definitionally equal format
+example (a b c d: ℝ) : 1 + (a + b + c + d) = a + b + c + d + 1 := by
+  let x := a+b+c+d
+  show 1 + x = x + 1
+  exact add_comm 1 x    -- x and a + b + c + d are amse
 
 
 /-=================== rw & nth_rw ================= -/

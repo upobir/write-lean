@@ -17,7 +17,10 @@ example : ∀ x y : Nat, x + y = y + x := by
 example (h: ∀ x: Nat, x ≥ 0) : 5 ≥ 0 := by
   exact h 5
 
-
+-- there is a way to create for all by `revert` which brings a local variable from context to target, effectively creating for all. not sure why do this, i g to match it exact to some hypothesis?
+example (n m: ℕ) (h': n = m) (h: ∀ n:ℕ, n = m → n+2 = m+1+1) : n+2 = m+1+1 := by
+  revert n    -- takes n  (and also n=m as it depends on n) to target
+  assumption
 
 /- ================== Existantial Quantifier ================= -/
 

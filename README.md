@@ -51,7 +51,7 @@ Not needed for proving. Binary at `.lake/build/bin/<project-name>`
 2. `assumption`
 3. `have`
 4. `apply`
-5. `intro`
+5. `intro`, `intros`
 6. `constructor`
 7. `left`, `right`
 8. `cases`, `cases'`
@@ -77,6 +77,10 @@ Not needed for proving. Binary at `.lake/build/bin/<project-name>`
 28. `linarith`
 29. `omega`
 30. `suffices`
-31. `repeat`
+31. `repeat`, `<;>`
 32. `by_cases`
 33. `zify`,`qify`,`rify`
+34. `rename_i`
+35. `revert`
+36. `generalize`
+37. `show`
