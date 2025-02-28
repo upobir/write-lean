@@ -191,3 +191,11 @@ example (p q: Prop) (h: ¬p → q) (h': q → False) : p := by
 example (p q: Prop) (h: p → q) (h': q → False) : ¬p := by
   by_contra hp  -- this introduces hp : p and makes goal False
   exact h' (h hp)
+
+-- using prooifs from excluded middle is done by `by_cases` tactic
+example (p q r : Prop) (hpq: p → q) (hnqr: ¬p → r) : q ∨ r := by
+  by_cases h: p         -- next two goals are p → target and ¬p → target
+  . left                -- h : p here, prove target
+    exact hpq h
+  . right               -- h : ¬p here prove target
+    exact hnqr h

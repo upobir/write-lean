@@ -75,3 +75,4 @@ Not needed for proving. Binary at `.lake/build/bin/<project-name>`
 29. `omega`
 30. `suffices`
 31. `repeat`
+32. `by_cases`
