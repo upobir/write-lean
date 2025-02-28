@@ -79,3 +79,4 @@ Not needed for proving. Binary at `.lake/build/bin/<project-name>`
 30. `suffices`
 31. `repeat`
 32. `by_cases`
+33. `zify`,`qify`,`rify`

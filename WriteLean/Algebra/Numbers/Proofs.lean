@@ -62,6 +62,32 @@ example (a b c: ℕ) (h: (a:ℝ) + b = c + 3) (h' : c + 3 = 4) : a + b = 4 := by
 example (a : ℕ) (b : ℤ) (h: (a:ℝ) = b) : a = b := by
   norm_cast at h      -- works with mixed levels of casting too
 
+/- ================ upcasting =================== -/
+
+-- `zify` upcasts target or propsition from Nat to Int, for subtraction can allow smoother result by providing  requird ≤ facts
+example (a b c: ℕ) (h: a + 1 < c) (h': (b:ℤ) - 1 < c) : a + b < 2*c := by
+  zify    -- changes target to ↑a + ↑b < 2 * ↑c
+  zify at h   -- changes h' to ↑a + 1 < ↑c
+  sorry
+
+example (a b c : Nat) (h : a - b < c) (hab : b ≤ a) : False := by
+    -- zify   -- can't change a - b to ↑a - ↑b
+    zify [hab] at h   -- using hab now h is ↑a - ↑b < ↑c
+    sorry
+
+-- `qify` upcasts target or proposition from Nat, Int to Rat, for division to work well, pass divisible facts or for subtraction pass < facts
+example (a c: ℕ) (h: a < c) : a + 1 ≤ c := by
+  qify    -- changes target to ↑a + 1 ≤ ↑c
+  zify at h   -- changes h' to ↑a < ↑c
+  sorry
+
+example (a b c d : Nat) (h : a - b + c / d = 10) (hab : b ≤ a) (hcd : d ∣ c) : (a:ℚ) - b + c / d = 10 := by
+    -- qify   -- can't change a - b or c / d
+    qify [hab, hcd] at h
+    assumption
+
+-- `rify` upcasts to Nat,Int,Rat to Real, as usual give extra facts,
+-- no examples to see same as above
 
 /- ================= simp & field_simp ================ -/
 
