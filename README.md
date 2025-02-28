@@ -38,6 +38,8 @@ Not needed for proving. Binary at `.lake/build/bin/<project-name>`
         1. [Proofs](WriteLean/Algebra/ClassicalAlgebra/Proofs.lean)
     3. Multiple Equation
         1. [Proofs](WriteLean/Algebra/MultipleEquation/Proofs.lean)
+    4. Quadratic Equation
+        1. [Proofs](WriteLean/Algebra/Quadratic/Proofs.lean)
 4. Number Theory
     1. Natural Number Technique
         1. [Proofs](WriteLean/NumberTheory/NatNumberTechnique/Proofs.lean)
